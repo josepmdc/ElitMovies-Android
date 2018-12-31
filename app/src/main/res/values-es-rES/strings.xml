@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="popular">Populares</string>
+    <string name="top_rated">Mejor Valoradas</string>
+    <string name="upcoming">Próximamente</string>
+    <string name="movies">Películas</string>
+    <string name="tv_shows">Series</string>
+    <string name="books">Libros</string>
+    <string name="music">Música</string>
+    <string name="user">Usuario</string>
+    <string name="airing_today">Transmitiendo hoy</string>
+    <string name="on_the_air">En el aire</string>
+</resources>

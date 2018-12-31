@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_movies"
+        android:icon="@drawable/ic_movie"
+        android:name="@string/movies"
+        android:title="@string/movies"/>
+
+    <item
+        android:id="@+id/nav_tv_shows"
+        android:icon="@drawable/ic_tv_shows"
+        android:name="@string/tv_shows"
+        android:title="@string/tv_shows"/>
+
+    <item
+        android:id="@+id/nav_books"
+        android:icon="@drawable/ic_book"
+        android:name="@string/books"
+        android:title="@string/books"/>
+
+    <item
+        android:id="@+id/nav_music"
+        android:icon="@drawable/ic_music"
+        android:name="@string/music"
+        android:title="@string/music"/>
+
+    <item
+        android:id="@+id/nav_user"
+        android:icon="@drawable/ic_user"
+        android:name="@string/user"
+        android:title="@string/user"/>
+
+</menu>
