@@ -8,6 +8,10 @@
     <string name="books">Llibres</string>
     <string name="music">Música</string>
     <string name="user">Usuari</string>
-    <string name="airing_today">En emisió avui</string>
-    <string name="on_the_air">En emisió</string>
+    <string name="airing_today">En emissió avui</string>
+    <string name="on_the_air">En emissió</string>
+    <string name="trailers">Tràilers</string>
+    <string name="reviews">Valoracions</string>
+    <string name="summary">Resum</string>
+    <string name="backdrop">Fons</string>
 </resources>

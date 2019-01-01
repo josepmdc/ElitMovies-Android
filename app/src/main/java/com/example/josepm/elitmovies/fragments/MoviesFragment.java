@@ -1,5 +1,6 @@
 package com.example.josepm.elitmovies.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.activities.MovieDetailActivity;
 import com.example.josepm.elitmovies.adapters.MoviesAdapter;
 import com.example.josepm.elitmovies.api.tmdb.MoviesRepository;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMoviesCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnMoviesClickCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 
@@ -111,7 +114,7 @@ public class MoviesFragment extends Fragment {
             public void onSuccess(int page, List<Movie> movies) {
                 Log.d("MoviesRepository", "Current Page = " + page);
                 if (adapter == null) {
-                    adapter = new MoviesAdapter(movies, movieGenres);
+                    adapter = new MoviesAdapter(movies, movieGenres, callback);
                     moviesList.setAdapter(adapter);
                 } else {
                     if (page == 1) {
@@ -132,6 +135,15 @@ public class MoviesFragment extends Fragment {
     }
 
     // endregion
+
+    OnMoviesClickCallback callback = new OnMoviesClickCallback() {
+        @Override
+        public void onClick(Movie movie) {
+            Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+            intent.putExtra(MovieDetailActivity.MOVIE_ID, movie.getId());
+            startActivity(intent);
+        }
+    };
 
     // Displays the menu to sort by popular. top rated...
     private void showSortMenu() {

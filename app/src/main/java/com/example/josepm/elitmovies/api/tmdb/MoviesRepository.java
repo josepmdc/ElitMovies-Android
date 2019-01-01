@@ -1,10 +1,16 @@
 package com.example.josepm.elitmovies.api.tmdb;
 
+import android.util.Log;
+
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMovieCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMoviesCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTrailersCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.TMDbApi;
 import com.example.josepm.elitmovies.api.tmdb.models.GenresResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.MoviesResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.TrailerResponse;
 
 import java.util.Locale;
 
@@ -35,7 +41,7 @@ public class MoviesRepository {
         this.api = api;
     }
 
-    // It creates the TMDBApi class with retrofit instance
+    // region getInstance (It creates the TMDBApi class with retrofit instance)
     public static MoviesRepository getInstance() {
         if (repository == null) {
             Retrofit retrofit = new Retrofit.Builder()
@@ -48,10 +54,9 @@ public class MoviesRepository {
 
         return repository;
     }
+    // endregion
 
-    // region Get Data
-
-    // Calls the api to get movies
+    // region getMovies (Calls the api to get all the movies)
     public void getMovies(int page, String sortBy, final OnGetMoviesCallback callback) {
         Callback<MoviesResponse> call = new Callback<MoviesResponse>() {
             @Override
@@ -90,8 +95,35 @@ public class MoviesRepository {
                 break;
         }
     }
+    // endregion
 
-    // Calls the api to get all the genres
+    // region getMovies (Calls the api to get the info of a movie)
+    public void getMovie(int movieId, final OnGetMovieCallback callback) {
+        api.getMovie(movieId, TMDB_API_KEY, LANGUAGE)
+                .enqueue(new Callback<Movie>() {
+                    @Override
+                    public void onResponse(Call<Movie> call, Response<Movie> response) {
+                        if (response.isSuccessful()) {
+                            Movie movie = response.body();
+                            if (movie != null) {
+                                callback.onSuccess(movie);
+                            } else {
+                                callback.onError();
+                            }
+                        } else {
+                            callback.onError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Movie> call, Throwable t) {
+                        callback.onError();
+                    }
+                });
+    }
+    // endregion
+
+    // region getGenres (Calls the api to get all the genres)
     public void getGenres(final OnGetGenresCallback callback) {
         api.getGenres(TMDB_API_KEY, LANGUAGE)
                 .enqueue(new Callback<GenresResponse>() {
@@ -115,7 +147,34 @@ public class MoviesRepository {
                     }
                 });
     }
-
     // endregion
+
+    // region getTrailers (Calls api to get trailers for specific movie)
+    public void getTrailers(int movieId, final OnGetTrailersCallback callback) {
+        api.getTrailers(movieId, TMDB_API_KEY, LANGUAGE)
+                .enqueue(new Callback<TrailerResponse>() {
+                    @Override
+                    public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
+                        if (response.isSuccessful()) {
+                            TrailerResponse trailerResponse = response.body();
+                            if (trailerResponse != null && trailerResponse.getTrailers() != null) {
+                                callback.onSuccess(trailerResponse.getTrailers());
+                            } else {
+                                callback.onError();
+                            }
+                        } else {
+                            callback.onError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TrailerResponse> call, Throwable t) {
+                        callback.onError();
+                    }
+                });
+    }
+    // endregion
+
+
 
 }

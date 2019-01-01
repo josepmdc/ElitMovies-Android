@@ -10,4 +10,8 @@
     <string name="user">Usuario</string>
     <string name="airing_today">Transmitiendo hoy</string>
     <string name="on_the_air">En el aire</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Valoraciones</string>
+    <string name="summary">Resumen</string>
+    <string name="backdrop">Fondo</string>
 </resources>

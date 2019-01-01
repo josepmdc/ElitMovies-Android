@@ -11,4 +11,8 @@
     <string name="user">User</string>
     <string name="airing_today">Airing today</string>
     <string name="on_the_air">On the air</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Reviews</string>
+    <string name="summary">Summary</string>
+    <string name="backdrop">Backdrop</string>
 </resources>

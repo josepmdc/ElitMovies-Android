@@ -18,6 +18,14 @@ public class Movie {
     @Expose
     private String posterPath;
 
+    @SerializedName("overview")
+    @Expose
+    private String overview;
+
+    @SerializedName("backdrop_path")
+    @Expose
+    private String backdrop;
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
@@ -29,6 +37,10 @@ public class Movie {
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds;
+
+    @SerializedName("genres")
+    @Expose
+    private List<Genre> genres;
 
     public int getId() {
         return id;
@@ -54,6 +66,22 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
     public String getReleaseDate() {
         return releaseDate;
     }
@@ -77,4 +105,13 @@ public class Movie {
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
     }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
 }
