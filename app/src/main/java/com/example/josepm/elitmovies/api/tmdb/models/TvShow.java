@@ -19,6 +19,10 @@ public class TvShow {
     @Expose
     private String backdropPath;
 
+    @SerializedName("overview")
+    @Expose
+    private String overview;
+
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
@@ -34,6 +38,10 @@ public class TvShow {
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds;
+
+    @SerializedName("genres")
+    @Expose
+    private List<Genre> genres;
 
     public int getId() {
         return id;
@@ -67,6 +75,14 @@ public class TvShow {
         this.backdropPath = backdropPath;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
     public String getFirstAirDate() {
         return firstAirDate;
     }
@@ -89,6 +105,14 @@ public class TvShow {
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
 }

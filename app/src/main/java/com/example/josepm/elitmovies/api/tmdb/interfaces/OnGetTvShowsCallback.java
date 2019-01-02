@@ -2,9 +2,11 @@ package com.example.josepm.elitmovies.api.tmdb.interfaces;
 
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 
-public interface OnGetTvShowCallback {
+import java.util.List;
 
-    void onSuccess(TvShow tvShow);
+public interface OnGetTvShowsCallback {
+
+    void onSuccess(int page, List<TvShow> tvShows);
 
     void onError();
 

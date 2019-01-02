@@ -1,5 +1,6 @@
 package com.example.josepm.elitmovies.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,10 +19,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.activities.TvShowDetailActivity;
 import com.example.josepm.elitmovies.adapters.TvShowsAdapter;
 import com.example.josepm.elitmovies.api.tmdb.TvShowsRepository;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
-import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTvShowCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTvShowsCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnTvShowsClickCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 
@@ -106,12 +109,12 @@ public class TvShowsFragment extends Fragment {
     // It gets the tv shows and appends them to the RecyclerView
     private void getTvShows(int page) {
         isFetchingMovies = true;
-        tvShowsRepository.getTvShows(page, sortBy, new OnGetTvShowCallback() {
+        tvShowsRepository.getTvShows(page, sortBy, new OnGetTvShowsCallback() {
             @Override
             public void onSuccess(int page, List<TvShow> movies) {
                 Log.d("MoviesRepository", "Current Page = " + page);
                 if (adapter == null) {
-                    adapter = new TvShowsAdapter(movies, movieGenres);
+                    adapter = new TvShowsAdapter(movies, movieGenres, callback);
                     tvShowsList.setAdapter(adapter);
                 } else {
                     if (page == 1) {
@@ -132,6 +135,15 @@ public class TvShowsFragment extends Fragment {
     }
 
     // endregion
+
+    OnTvShowsClickCallback callback = new OnTvShowsClickCallback() {
+        @Override
+        public void onClick(TvShow tvShow) {
+            Intent intent = new Intent(getActivity(), TvShowDetailActivity.class);
+            intent.putExtra(TvShowDetailActivity.TV_SHOW_ID, tvShow.getId());
+            startActivity(intent);
+        }
+    };
 
     // Displays the menu to sort by popular. top rated...
     private void showSortMenu() {

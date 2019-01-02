@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnTvShowsClickCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 
@@ -25,10 +26,12 @@ public class TvShowsAdapter extends RecyclerView.Adapter<TvShowsAdapter.TvShowVi
     private List<TvShow> tvShows;
     private List<Genre> allGenres;
     private String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    private OnTvShowsClickCallback callback;
     // endregion
 
     //Constructor
-    public TvShowsAdapter(List<TvShow> tvShows, List<Genre> allGenres) {
+    public TvShowsAdapter(List<TvShow> tvShows, List<Genre> allGenres, OnTvShowsClickCallback callback) {
+        this.callback = callback;
         this.tvShows = tvShows;
         this.allGenres = allGenres;
     }
@@ -65,6 +68,7 @@ public class TvShowsAdapter extends RecyclerView.Adapter<TvShowsAdapter.TvShowVi
         ImageView poster;
         TextView releaseDate;
         TextView rating;
+        TvShow tvShow;
 
         // Constructor
         public TvShowViewHolder(View itemView) {
@@ -73,10 +77,17 @@ public class TvShowsAdapter extends RecyclerView.Adapter<TvShowsAdapter.TvShowVi
             poster = itemView.findViewById(R.id.item_tv_show_poster);
             releaseDate = itemView.findViewById(R.id.item_tv_show_release_date);
             rating = itemView.findViewById(R.id.item_tv_show_rating);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(tvShow);
+                }
+            });
         }
 
         // It binds the data to the components in the View
         public void bind(TvShow tvShow) {
+            this.tvShow = tvShow;
             name.setText(StringUtils.abbreviate(tvShow.getName(), 13));
             rating.setText(String.valueOf(tvShow.getRating()));
             releaseDate.setText(String.valueOf(tvShow.getFirstAirDate().split("-")[0]));

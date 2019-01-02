@@ -4,6 +4,7 @@ import com.example.josepm.elitmovies.api.tmdb.models.GenresResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.MoviesResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.TrailerResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShowResponse;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public interface TMDbApi {
             @Query("page") int page
     );
 
-    @GET("movie/{movie_id}&append_to_response=videos")
+    @GET("movie/{movie_id}")
     Call<Movie> getMovie(
             @Path("movie_id") int id,
             @Query("api_key") String apiKey,
@@ -79,6 +80,20 @@ public interface TMDbApi {
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("page") int page
+    );
+
+    @GET("tv/{tv_show_id}")
+    Call<TvShow> getTvShow(
+            @Path("tv_show_id") int id,
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
+
+    @GET("tv/{tv_show_id}/videos")
+    Call<TrailerResponse> getTrailersTvShow(
+            @Path("tv_show_id") int id,
+            @Query("api_key") String apiKEy,
+            @Query("language") String language
     );
 
     // endregion
