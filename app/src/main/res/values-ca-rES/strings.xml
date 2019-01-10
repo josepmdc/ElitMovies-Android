@@ -14,4 +14,7 @@
     <string name="reviews">Valoracions</string>
     <string name="summary">Resum</string>
     <string name="backdrop">Fons</string>
+    <string name="show_replies">Mostrar respostes</string>
+    <string name="title">Títol</string>
+    <string name="comment">Comentari</string>
 </resources>

@@ -14,4 +14,7 @@
     <string name="reviews">Valoraciones</string>
     <string name="summary">Resumen</string>
     <string name="backdrop">Fondo</string>
+    <string name="show_replies">Mostrar respuestas</string>
+    <string name="title">Título</string>
+    <string name="comment">Comentario</string>
 </resources>

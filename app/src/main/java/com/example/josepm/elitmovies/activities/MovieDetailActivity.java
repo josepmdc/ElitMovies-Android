@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,10 +20,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.adapters.CommentsAdapter;
+import com.example.josepm.elitmovies.api.tmdb.CommentsRepository;
 import com.example.josepm.elitmovies.api.tmdb.MoviesRepository;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetCommentsCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMovieCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTrailersCallback;
+import com.example.josepm.elitmovies.api.tmdb.models.Comment;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.Trailer;
@@ -47,8 +52,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     private LinearLayout movieTrailers;
     private LinearLayout movieReviews;
     private TextView trailersLabel;
+    private RecyclerView commentsList;
 
     private MoviesRepository moviesRepository;
+    private CommentsRepository commentsRepository;
+    private CommentsAdapter adapter;
     private int movieId;
 
     @Override
@@ -59,12 +67,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieId = getIntent().getIntExtra(MOVIE_ID, movieId);
 
         moviesRepository = MoviesRepository.getInstance();
+        commentsRepository = CommentsRepository.getInstance();
 
         setupToolbar();
 
         initUI();
 
         getMovie();
+
+        getComments();
 
     }
 
@@ -135,6 +146,33 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onError() {
                 showError();
+            }
+        });
+    }
+
+    private void getComments() {
+        commentsRepository.getComments(movieId, new OnGetCommentsCallback() {
+            @Override
+            public void onSuccess(int page, List<Comment> comments) {
+                if (adapter == null) {
+                    //adapter = new CommentsAdapter(comments, callback);
+                    //commentsList.setAdapter(adapter);
+                } else {
+                    //if (page == 1) {
+                    //    adapter.clearMovies();
+                }
+                //adapter.appendMovies(movies);
+                //currentPage = page;
+            }
+
+
+            @Override
+            public void onError() {
+                Toast.makeText(
+                        MovieDetailActivity.this,
+                        "No se han podido cargar los comentarios",
+                        Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }

@@ -3,6 +3,8 @@ package com.example.josepm.elitmovies.api.tmdb.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Comment {
 
     @SerializedName("id")
@@ -36,6 +38,10 @@ public class Comment {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
+    @SerializedName("subComentarios")
+    @Expose
+    private ArrayList<Comment> subComentarios;
 
     public int getCommentId() {
         return commentId;
@@ -99,6 +105,14 @@ public class Comment {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public ArrayList<Comment> getSubComentarios() {
+        return subComentarios;
+    }
+
+    public void setSubComentarios(ArrayList<Comment> subComentarios) {
+        this.subComentarios = subComentarios;
     }
 
 }

@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CommentsRepository {
 
-    private static final String BASE_URL = "https://elitmovies.appspot.com/";
+    private static final String BASE_URL = "http://127.0.0.1:8000/";
     private static CommentsRepository repository;
 
     private ElitMoviesApi api;

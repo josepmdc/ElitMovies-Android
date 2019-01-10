@@ -15,4 +15,7 @@
     <string name="reviews">Reviews</string>
     <string name="summary">Summary</string>
     <string name="backdrop">Backdrop</string>
+    <string name="show_replies">Show replies</string>
+    <string name="title">Title</string>
+    <string name="comment">Comment</string>
 </resources>
