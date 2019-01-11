@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MoviesRepository {
+public class MoviesRepository  {
 
     // region Variable Declaration
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
@@ -174,7 +174,6 @@ public class MoviesRepository {
                 });
     }
     // endregion
-
 
 
 }
