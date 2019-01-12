@@ -43,14 +43,11 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.nav_tv_shows:
                             selectedFragment = new TvShowsFragment();
                             break;
-                        case R.id.nav_music:
-                            selectedFragment = new UserFragment();
-                            break;
-                        case R.id.nav_books:
-                            selectedFragment = new UserFragment();
-                            break;
                         case R.id.nav_user:
                             selectedFragment = new UserFragment();
+                            break;
+                        default:
+                            selectedFragment = new MoviesFragment();
                             break;
                     }
 

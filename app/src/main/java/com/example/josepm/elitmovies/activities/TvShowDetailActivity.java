@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,16 +20,23 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.adapters.CommentsAdapter;
+import com.example.josepm.elitmovies.api.tmdb.CommentsRepository;
 import com.example.josepm.elitmovies.api.tmdb.TvShowsRepository;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetCommentsCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTrailersCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTvShowCallback;
+import com.example.josepm.elitmovies.api.tmdb.models.Comment;
+import com.example.josepm.elitmovies.api.tmdb.models.CommentsResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.Trailer;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class TvShowDetailActivity extends AppCompatActivity {
 
@@ -43,10 +54,13 @@ public class TvShowDetailActivity extends AppCompatActivity {
     private TextView tvShowReleaseDate;
     private RatingBar tvShowRating;
     private LinearLayout tvShowTrailers;
-    private LinearLayout tvShowReviews;
+    private LinearLayoutManager layoutManager;
+    private RecyclerView commentsList;
     private TextView trailersLabel;
 
     private TvShowsRepository tvShowsRepository;
+    private CommentsRepository commentsRepository;
+    private CommentsAdapter adapter;
     private int tvShowId;
 
     @Override
@@ -57,6 +71,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
         tvShowId = getIntent().getIntExtra(TV_SHOW_ID, tvShowId);
 
         tvShowsRepository = TvShowsRepository.getInstance();
+        commentsRepository = CommentsRepository.getInstance();
 
         setupToolbar();
 
@@ -64,6 +79,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
 
         getTvShow();
 
+        getComments();
     }
 
     private void setupToolbar() {
@@ -85,8 +101,12 @@ public class TvShowDetailActivity extends AppCompatActivity {
         tvShowReleaseDate = findViewById(R.id.tvShowDetailsReleaseDate);
         tvShowRating = findViewById(R.id.tvShowDetailsRating);
         tvShowTrailers = findViewById(R.id.tvShowTrailers);
-        tvShowReviews = findViewById(R.id.tvShowReviews);
         trailersLabel = findViewById(R.id.tvShowTrailersLabel);
+        commentsList = findViewById(R.id.tv_show_comments_list);
+        layoutManager = new LinearLayoutManager(this);
+        commentsList.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(commentsList.getContext(), layoutManager.getOrientation());
+        commentsList.addItemDecoration(dividerItemDecoration);
     }
 
     private void getTvShow() {
@@ -113,6 +133,34 @@ public class TvShowDetailActivity extends AppCompatActivity {
             @Override
             public void onError() {
                 finish();
+            }
+        });
+    }
+
+    private void getComments() {
+        commentsRepository.getComments(tvShowId, new OnGetCommentsCallback() {
+            @Override
+            public void onSuccess(int page, List<Comment> comments) {
+                if (adapter == null) {
+                    adapter = new CommentsAdapter(comments);
+                    commentsList.setAdapter(adapter);
+                } else {
+                    if (page == 1) {
+                        adapter.clearComments();
+                    }
+                }
+                //adapter.appendMovies(movies);
+                //currentPage = page;
+            }
+
+            @Override
+            public void onError(Call<CommentsResponse> call, Throwable t) {
+                Log.e("ERROR getComments: ", t.toString());
+                Toast.makeText(
+                        getApplicationContext(),
+                        t.toString(),
+                        Toast.LENGTH_LONG)
+                        .show();
             }
         });
     }
@@ -153,7 +201,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
                             showTrailer(String.format(YOUTUBE_VIDEO_URL, trailer.getKey()));
                         }
                     });
-                    Glide.with(TvShowDetailActivity.this)
+                    Glide.with(getApplicationContext())
                             .load(String.format(YOUTUBE_THUMBNAIL_URL, trailer.getKey()))
                             .apply(RequestOptions.placeholderOf(R.color.colorPrimary).centerCrop())
                             .into(thumbnail);

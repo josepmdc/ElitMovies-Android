@@ -7,9 +7,12 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,12 +31,15 @@ import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMovieCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTrailersCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Comment;
+import com.example.josepm.elitmovies.api.tmdb.models.CommentsResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.Trailer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class MovieDetailActivity extends AppCompatActivity {
     public static String MOVIE_ID = "movie_id";
@@ -50,9 +56,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView movieReleaseDate;
     private RatingBar movieRating;
     private LinearLayout movieTrailers;
-    private LinearLayout movieReviews;
     private TextView trailersLabel;
     private RecyclerView commentsList;
+    private LinearLayoutManager layoutManager;
 
     private MoviesRepository moviesRepository;
     private CommentsRepository commentsRepository;
@@ -98,8 +104,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieReleaseDate = findViewById(R.id.movieDetailsReleaseDate);
         movieRating = findViewById(R.id.movieDetailsRating);
         movieTrailers = findViewById(R.id.movieTrailers);
-        movieReviews = findViewById(R.id.movieReviews);
         trailersLabel = findViewById(R.id.trailersLabel);
+        commentsList = findViewById(R.id.movie_comments_list);
+        layoutManager = new LinearLayoutManager(this);
+        commentsList.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(commentsList.getContext(), layoutManager.getOrientation());
+        commentsList.addItemDecoration(dividerItemDecoration);
     }
 
     private void getMovie() {
@@ -155,23 +165,24 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int page, List<Comment> comments) {
                 if (adapter == null) {
-                    //adapter = new CommentsAdapter(comments, callback);
-                    //commentsList.setAdapter(adapter);
+                    adapter = new CommentsAdapter(comments);
+                    commentsList.setAdapter(adapter);
                 } else {
-                    //if (page == 1) {
-                    //    adapter.clearMovies();
+                    if (page == 1) {
+                        adapter.clearComments();
+                    }
                 }
                 //adapter.appendMovies(movies);
                 //currentPage = page;
             }
 
-
             @Override
-            public void onError() {
+            public void onError(Call<CommentsResponse> call, Throwable t) {
+                Log.e("ERROR getComments: ", t.toString());
                 Toast.makeText(
-                        MovieDetailActivity.this,
-                        "No se han podido cargar los comentarios",
-                        Toast.LENGTH_SHORT)
+                        getApplicationContext(),
+                        t.toString(),
+                        Toast.LENGTH_LONG)
                         .show();
             }
         });
@@ -193,7 +204,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                             showTrailer(String.format(YOUTUBE_VIDEO_URL, trailer.getKey()));
                         }
                     });
-                    Glide.with(MovieDetailActivity.this)
+                    Glide.with(getApplicationContext())
                             .load(String.format(YOUTUBE_THUMBNAIL_URL, trailer.getKey()))
                             .apply(RequestOptions.placeholderOf(R.color.colorPrimary).centerCrop())
                             .into(thumbnail);

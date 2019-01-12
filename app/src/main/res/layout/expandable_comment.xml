@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp">
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:id="@+id/separatorContainer"
@@ -17,7 +17,7 @@
         android:orientation="horizontal"/>
 
     <TextView
-        android:id="@+id/user"
+        android:id="@+id/comment_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Username"
@@ -26,13 +26,13 @@
         app:layout_constraintLeft_toRightOf="@id/separatorContainer" />
 
     <TextView
+        android:id="@+id/comment_post_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="* 5h"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/user"
-        style="@style/TextAppearance.AppCompat.Small.Inverse"
-        android:id="@+id/textView" />
+        app:layout_constraintLeft_toRightOf="@id/comment_username"
+        style="@style/TextAppearance.AppCompat.Small.Inverse" />
 
     <TextView
         android:id="@+id/comment_title"
@@ -40,13 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         style="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintTop_toBottomOf="@id/user"
-        android:text="Title"/>
+        app:layout_constraintTop_toBottomOf="@id/comment_username"
+        android:text="@string/title"/>
 
     <TextView
-        android:id="@+id/body"
+        android:id="@+id/comment_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -58,17 +58,17 @@
         app:layout_constraintLeft_toRightOf="@id/separatorContainer" />
 
     <TextView
-        android:id="@+id/reply"
+        android:id="@+id/comment_reply"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:drawablePadding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/body"
+        app:layout_constraintTop_toBottomOf="@id/comment_body"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Reply"
+        android:text="@string/reply"
         style="@style/TextAppearance.AppCompat.Small"
         tools:layout_editor_absoluteX="278dp" />
 
@@ -78,13 +78,13 @@
         android:layout_height="16dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toLeftOf="@id/reply"
+        app:layout_constraintRight_toLeftOf="@id/comment_reply"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="269dp" />
 
 
     <ImageButton
-        android:id="@+id/btn_down_vote"
+        android:id="@+id/comment_btn_down_vote"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="8dp"
@@ -95,26 +95,26 @@
         tools:layout_editor_absoluteX="241dp" />
 
     <TextView
-        android:id="@+id/votes"
+        android:id="@+id/comment_votes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toLeftOf="@id/btn_down_vote"
+        app:layout_constraintRight_toLeftOf="@id/comment_btn_down_vote"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/TextAppearance.AppCompat.Small"
         android:text="1.4k"
         tools:layout_editor_absoluteX="207dp" />
 
     <ImageButton
-        android:id="@+id/btn_upvote"
+        android:id="@+id/comment_btn_upvote"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/ic_arrow_upward"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/votes"
+        app:layout_constraintRight_toLeftOf="@id/comment_votes"
         tools:layout_editor_absoluteX="179dp" />
 
 </android.support.constraint.ConstraintLayout>

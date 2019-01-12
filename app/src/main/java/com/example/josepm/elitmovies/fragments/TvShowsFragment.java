@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
+import com.example.josepm.elitmovies.activities.SearchActivity;
 import com.example.josepm.elitmovies.activities.TvShowDetailActivity;
 import com.example.josepm.elitmovies.adapters.TvShowsAdapter;
 import com.example.josepm.elitmovies.api.tmdb.TvShowsRepository;
@@ -81,7 +82,9 @@ public class TvShowsFragment extends Fragment {
             case R.id.sort:
                 showSortMenu();
                 return true;
-            case R.id.search_bar:
+            case R.id.search_button:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

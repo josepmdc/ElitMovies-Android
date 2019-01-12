@@ -17,4 +17,6 @@
     <string name="show_replies">Mostrar respuestas</string>
     <string name="title">Título</string>
     <string name="comment">Comentario</string>
+    <string name="reply">Responder</string>
+    <string name="comments">Comentarios</string>
 </resources>

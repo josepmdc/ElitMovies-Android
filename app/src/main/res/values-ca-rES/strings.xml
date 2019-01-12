@@ -17,4 +17,6 @@
     <string name="show_replies">Mostrar respostes</string>
     <string name="title">Títol</string>
     <string name="comment">Comentari</string>
+    <string name="reply">Respon</string>
+    <string name="comments">Comentaris</string>
 </resources>

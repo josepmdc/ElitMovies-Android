@@ -18,4 +18,6 @@
     <string name="show_replies">Show replies</string>
     <string name="title">Title</string>
     <string name="comment">Comment</string>
+    <string name="reply">Reply</string>
+    <string name="comments">Comments</string>
 </resources>
