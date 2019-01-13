@@ -105,8 +105,6 @@ public class TvShowDetailActivity extends AppCompatActivity {
         commentsList = findViewById(R.id.tv_show_comments_list);
         layoutManager = new LinearLayoutManager(this);
         commentsList.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(commentsList.getContext(), layoutManager.getOrientation());
-        commentsList.addItemDecoration(dividerItemDecoration);
     }
 
     private void getTvShow() {

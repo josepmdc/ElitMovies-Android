@@ -1,6 +1,5 @@
 package com.example.josepm.elitmovies.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -75,10 +74,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         // Constructor
         public MovieViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.item_movie_title);
-            poster = itemView.findViewById(R.id.item_movie_poster);
-            releaseDate = itemView.findViewById(R.id.item_movie_release_date);
-            rating = itemView.findViewById(R.id.item_movie_rating);
+            title = itemView.findViewById(R.id.search_resut_title);
+            poster = itemView.findViewById(R.id.search_result_poster);
+            releaseDate = itemView.findViewById(R.id.search_result_release_date);
+            rating = itemView.findViewById(R.id.search_result_rating);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

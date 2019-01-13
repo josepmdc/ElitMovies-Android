@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/item_movie_poster"
+            android:id="@+id/search_result_poster"
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:background="@color/cardColor"
@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_movie_title"
+                android:id="@+id/search_resut_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -52,7 +52,7 @@
                 android:gravity="bottom">
 
                 <TextView
-                    android:id="@+id/item_movie_release_date"
+                    android:id="@+id/search_result_release_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
@@ -66,7 +66,7 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/item_movie_rating"
+                    android:id="@+id/search_result_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"

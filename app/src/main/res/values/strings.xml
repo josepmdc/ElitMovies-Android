@@ -20,4 +20,8 @@
     <string name="comment">Comment</string>
     <string name="reply">Reply</string>
     <string name="comments">Comments</string>
+    <string name="username">Username</string>
+    <string name="genre">Genre</string>
+    <string name="search">Search</string>
+    <string name="search_for_a_movie">Search for a movie</string>
 </resources>

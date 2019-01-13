@@ -64,7 +64,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background">
 
             <TextView
                 android:id="@+id/movieDetailsGenres"
@@ -75,6 +76,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:paddingTop="20dp"
+                android:textColor="@color/textColor"
                 android:alpha="0.7"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -95,7 +97,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movieDetailsGenres"
-                android:progressTint="@color/colorPrimary"/>
+                android:progressBackgroundTint="@color/textColor"/>
 
             <TextView
                 android:id="@+id/movieDetailsReleaseDate"
@@ -109,7 +111,8 @@
                 android:alpha="0.7"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieDetailsRating" />
+                app:layout_constraintTop_toBottomOf="@+id/movieDetailsRating"
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:id="@+id/summaryLabel"
@@ -126,7 +129,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieDetailsReleaseDate" />
+                app:layout_constraintTop_toBottomOf="@+id/movieDetailsReleaseDate"
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:id="@+id/movieDetailsOverview"
@@ -141,7 +145,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/summaryLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/summaryLabel"
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:id="@+id/trailersLabel"
@@ -155,7 +160,8 @@
                 android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieDetailsOverview" />
+                app:layout_constraintTop_toBottomOf="@+id/movieDetailsOverview"
+                android:textColor="@color/textColor"/>
 
             <HorizontalScrollView
                 android:id="@+id/movieTrailersContainer"
@@ -187,7 +193,8 @@
                 android:textSize="24sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieTrailersContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/movieTrailersContainer"
+                android:textColor="@color/textColor"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/movie_comments_list"

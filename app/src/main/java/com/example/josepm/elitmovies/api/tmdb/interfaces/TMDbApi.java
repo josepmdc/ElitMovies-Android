@@ -3,6 +3,7 @@ package com.example.josepm.elitmovies.api.tmdb.interfaces;
 import com.example.josepm.elitmovies.api.tmdb.models.GenresResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.MoviesResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.SearchResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.TrailerResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShowResponse;
@@ -104,6 +105,17 @@ public interface TMDbApi {
     Call<GenresResponse> getGenres(
             @Query("api_key") String apiKey,
             @Query("language") String language
+    );
+
+    // endregion
+
+    // region Search
+
+    @GET("search/movie")
+    Call<SearchResponse> getSearch(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("query") String query
     );
 
     // endregion

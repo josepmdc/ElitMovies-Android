@@ -19,4 +19,8 @@
     <string name="comment">Comentario</string>
     <string name="reply">Responder</string>
     <string name="comments">Comentarios</string>
+    <string name="username">Usuario</string>
+    <string name="genre">Género</string>
+    <string name="search">Buscar</string>
+    <string name="search_for_a_movie">Busca una película</string>
 </resources>

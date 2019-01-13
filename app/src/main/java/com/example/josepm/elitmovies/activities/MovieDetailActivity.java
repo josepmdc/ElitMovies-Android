@@ -108,8 +108,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         commentsList = findViewById(R.id.movie_comments_list);
         layoutManager = new LinearLayoutManager(this);
         commentsList.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(commentsList.getContext(), layoutManager.getOrientation());
-        commentsList.addItemDecoration(dividerItemDecoration);
     }
 
     private void getMovie() {

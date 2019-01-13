@@ -1,8 +1,6 @@
 package com.example.josepm.elitmovies.api.tmdb;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.josepm.elitmovies.api.tmdb.interfaces.ElitMoviesApi;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetCommentsCallback;
@@ -14,9 +12,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class CommentsRepository {
 
-    private static final String BASE_URL = "http://10.0.2.2:8000/";
+    private static final String BASE_URL = "https://elitmovies2.appspot.com/";
     private static CommentsRepository repository;
 
     private ElitMoviesApi api;
@@ -54,7 +53,7 @@ public class CommentsRepository {
                                 Log.e("ERROR getComments", "No hay comentarios");
                             }
                         } else {
-                            Log.e("ERROR getComments", "Peticion fallida");
+                            Log.e("ERROR getComments", "Fallo en la petición");
                         }
                     }
 
