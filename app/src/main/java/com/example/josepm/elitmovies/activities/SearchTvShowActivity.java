@@ -17,21 +17,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
-import com.example.josepm.elitmovies.adapters.SearchResultsAdapter;
-import com.example.josepm.elitmovies.api.tmdb.MoviesRepository;
+import com.example.josepm.elitmovies.adapters.TvShowSearchResultAdapter;
 import com.example.josepm.elitmovies.api.tmdb.SearchRepository;
+import com.example.josepm.elitmovies.api.tmdb.TvShowsRepository;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
-import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetSearchResultsCallback;
-import com.example.josepm.elitmovies.api.tmdb.interfaces.OnSearchResultClickCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTvShowSearchResultCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnTvShowsClickCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
-import com.example.josepm.elitmovies.api.tmdb.models.SearchResponse;
-import com.example.josepm.elitmovies.api.tmdb.models.SearchResult;
+import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
+import com.example.josepm.elitmovies.api.tmdb.models.TvShowSearchResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchTvShowActivity extends AppCompatActivity {
 
     private RecyclerView searchResultsRecyclerView;
     private ProgressBar progressBar;
@@ -39,26 +39,26 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
 
     private SearchRepository searchRepository;
-    private SearchResultsAdapter adapter;
-    private MoviesRepository moviesRepository;
+    private TvShowSearchResultAdapter adapter;
+    private TvShowsRepository tvShowRepository;
     private List<Genre> genresList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search_tv_show);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        searchResultsRecyclerView = findViewById(R.id.search_results);
+        searchResultsRecyclerView = findViewById(R.id.tv_shows_search_results);
         layoutManager = new LinearLayoutManager(this);
         searchResultsRecyclerView.setLayoutManager(layoutManager);
-        progressBar = findViewById(R.id.loading_search);
-        searchResultsPlaceholder = findViewById(R.id.search_results_placeholder);
+        progressBar = findViewById(R.id.loading_tv_shows_search);
+        searchResultsPlaceholder = findViewById(R.id.tv_shows_search_results_placeholder);
 
         searchRepository = SearchRepository.getInstance();
-        moviesRepository = MoviesRepository.getInstance();
+        tvShowRepository = TvShowsRepository.getInstance();
 
     }
 
@@ -102,27 +102,27 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    OnSearchResultClickCallback callback = new OnSearchResultClickCallback() {
+    OnTvShowsClickCallback callback = new OnTvShowsClickCallback() {
         @Override
-        public void onClick(SearchResult searchResult) {
-            Intent intent = new Intent(getApplicationContext(), MovieDetailActivity.class);
-            intent.putExtra(MovieDetailActivity.MOVIE_ID, searchResult.getId());
+        public void onClick(TvShow tvShowSearchResult) {
+            Intent intent = new Intent(getApplicationContext(), TvShowDetailActivity.class);
+            intent.putExtra(TvShowDetailActivity.TV_SHOW_ID, tvShowSearchResult.getId());
             startActivity(intent);
         }
     };
 
     private void fetchResults(String query) {
         getGenres();
-        searchRepository.getSearchResults(query, new OnGetSearchResultsCallback() {
+        searchRepository.getTvShowSearchResults(query, new OnGetTvShowSearchResultCallback() {
             @Override
-            public void onSuccess(List<SearchResult> searchResults) {
-                adapter = new SearchResultsAdapter(searchResults, genresList, callback);
+            public void onSuccess(List<TvShow> tvShowsSearchResults) {
+                adapter = new TvShowSearchResultAdapter(tvShowsSearchResults, genresList, callback);
                 searchResultsRecyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
-            public void onError(Call<SearchResponse> call, Throwable t) {
+            public void onError(Call<TvShowSearchResponse> call, Throwable t) {
                 Toast.makeText(
                         getApplicationContext(),
                         t.toString(),
@@ -133,7 +133,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getGenres() {
-        moviesRepository.getGenres(new OnGetGenresCallback() {
+        tvShowRepository.getGenres(new OnGetGenresCallback() {
             @Override
             public void onSuccess(List<Genre> genres) {
                 genresList = genres;

@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
 import com.example.josepm.elitmovies.activities.MovieDetailActivity;
-import com.example.josepm.elitmovies.activities.SearchActivity;
+import com.example.josepm.elitmovies.activities.SearchMovieActivity;
 import com.example.josepm.elitmovies.adapters.MoviesAdapter;
 import com.example.josepm.elitmovies.api.tmdb.MoviesRepository;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetGenresCallback;
@@ -84,7 +84,7 @@ public class MoviesFragment extends Fragment {
                 showSortMenu();
                 return true;
             case R.id.search_button:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
                 startActivity(intent);
                 return true;
             default:

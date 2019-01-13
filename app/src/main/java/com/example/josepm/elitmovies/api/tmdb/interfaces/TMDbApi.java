@@ -3,10 +3,11 @@ package com.example.josepm.elitmovies.api.tmdb.interfaces;
 import com.example.josepm.elitmovies.api.tmdb.models.GenresResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.Movie;
 import com.example.josepm.elitmovies.api.tmdb.models.MoviesResponse;
-import com.example.josepm.elitmovies.api.tmdb.models.SearchResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.MovieSearchResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.TrailerResponse;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShow;
 import com.example.josepm.elitmovies.api.tmdb.models.TvShowResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.TvShowSearchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -112,7 +113,14 @@ public interface TMDbApi {
     // region Search
 
     @GET("search/movie")
-    Call<SearchResponse> getSearch(
+    Call<MovieSearchResponse> getMovieSearch(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("query") String query
+    );
+
+    @GET("search/tv")
+    Call<TvShowSearchResponse> getTvShowSearch(
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("query") String query

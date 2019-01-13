@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.josepm.elitmovies.R;
-import com.example.josepm.elitmovies.activities.SearchActivity;
+import com.example.josepm.elitmovies.activities.SearchMovieActivity;
+import com.example.josepm.elitmovies.activities.SearchTvShowActivity;
 import com.example.josepm.elitmovies.activities.TvShowDetailActivity;
 import com.example.josepm.elitmovies.adapters.TvShowsAdapter;
 import com.example.josepm.elitmovies.api.tmdb.TvShowsRepository;
@@ -83,7 +83,7 @@ public class TvShowsFragment extends Fragment {
                 showSortMenu();
                 return true;
             case R.id.search_button:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchTvShowActivity.class);
                 startActivity(intent);
                 return true;
             default:

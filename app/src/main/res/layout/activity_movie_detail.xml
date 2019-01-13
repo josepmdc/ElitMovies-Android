@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -189,6 +190,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/comments"
                 android:textSize="24sp"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -23,4 +23,5 @@
     <string name="genre">Gènere</string>
     <string name="search">Buscar</string>
     <string name="search_for_a_movie">Busca una pel·lícula</string>
+    <string name="search_for_a_tv_show">Busca una sèrie</string>
 </resources>

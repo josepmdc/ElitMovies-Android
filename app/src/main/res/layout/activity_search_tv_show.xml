@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity"
+    tools:context=".activities.SearchTvShowActivity"
     android:background="@color/background">
 
     <TextView
-        android:id="@+id/search_results_placeholder"
+        android:id="@+id/tv_shows_search_results_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/search_for_a_movie"
+        android:text="@string/search_for_a_tv_show"
         android:textSize="30sp"/>
 
     <ProgressBar
-        android:id="@+id/loading_search"
+        android:id="@+id/loading_tv_shows_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_results"
+        android:id="@+id/tv_shows_search_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

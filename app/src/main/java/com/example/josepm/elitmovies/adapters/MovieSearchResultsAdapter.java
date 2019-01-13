@@ -13,22 +13,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.josepm.elitmovies.R;
-import com.example.josepm.elitmovies.api.tmdb.interfaces.OnSearchResultClickCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnMovieSearchResultClickCallback;
 import com.example.josepm.elitmovies.api.tmdb.models.Genre;
-import com.example.josepm.elitmovies.api.tmdb.models.SearchResult;
+import com.example.josepm.elitmovies.api.tmdb.models.MovieSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsViewHolder> {
+public class MovieSearchResultsAdapter extends RecyclerView.Adapter<MovieSearchResultsAdapter.SearchResultsViewHolder> {
 
     private String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
-    private List<SearchResult> searchResults;
+    private List<MovieSearchResult> movieSearchResults;
     private List<Genre> allGenres;
-    private OnSearchResultClickCallback callback;
+    private OnMovieSearchResultClickCallback callback;
 
-    public SearchResultsAdapter(List<SearchResult> searchResults, List<Genre> allGenres, OnSearchResultClickCallback callback) {
-        this.searchResults = searchResults;
+    public MovieSearchResultsAdapter(List<MovieSearchResult> movieSearchResults, List<Genre> allGenres, OnMovieSearchResultClickCallback callback) {
+        this.movieSearchResults = movieSearchResults;
         this.allGenres = allGenres;
         this.callback = callback;
     }
@@ -43,26 +43,26 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
     @Override
     public void onBindViewHolder(@NonNull SearchResultsViewHolder searchResultsViewHolder, int i) {
-        final SearchResult searchResult = searchResults.get(i);
-        searchResultsViewHolder.title.setText(searchResult.getTitle());
-        searchResultsViewHolder.releaseDate.setText(searchResult.getReleaseDate().split("-")[0]);
-        searchResultsViewHolder.rating.setText(searchResult.getVoteAverage());
-        searchResultsViewHolder.genres.setText(getGenres(searchResult.getGenreIds()));
+        final MovieSearchResult movieSearchResult = movieSearchResults.get(i);
+        searchResultsViewHolder.title.setText(movieSearchResult.getTitle());
+        searchResultsViewHolder.releaseDate.setText(movieSearchResult.getReleaseDate().split("-")[0]);
+        searchResultsViewHolder.rating.setText(movieSearchResult.getVoteAverage());
+        searchResultsViewHolder.genres.setText(getGenres(movieSearchResult.getGenreIds()));
         Glide.with(searchResultsViewHolder.itemView)
-                .load(IMAGE_BASE_URL + searchResult.getPosterPath())
+                .load(IMAGE_BASE_URL + movieSearchResult.getPosterPath())
                 .apply(RequestOptions.placeholderOf(R.color.colorPrimary))
                 .into(searchResultsViewHolder.poster);
         searchResultsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(searchResult);
+                callback.onClick(movieSearchResult);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return searchResults.size();
+        return movieSearchResults.size();
     }
 
     private String getGenres(List<Integer> genreIds) {

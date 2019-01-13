@@ -1,10 +1,13 @@
 package com.example.josepm.elitmovies.api.tmdb;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetSearchResultsCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetMovieSearchResultsCallback;
+import com.example.josepm.elitmovies.api.tmdb.interfaces.OnGetTvShowSearchResultCallback;
 import com.example.josepm.elitmovies.api.tmdb.interfaces.TMDbApi;
-import com.example.josepm.elitmovies.api.tmdb.models.SearchResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.MovieSearchResponse;
+import com.example.josepm.elitmovies.api.tmdb.models.TvShowSearchResponse;
 
 import java.util.Locale;
 
@@ -41,25 +44,49 @@ public class SearchRepository {
 
     }
 
-    public void getSearchResults(String query, final OnGetSearchResultsCallback callback) {
-        api.getSearch(TMDB_API_KEY, LANGUAGE, query)
-                .enqueue(new Callback<SearchResponse>() {
+    public void getMovieSearchResults(String query, final OnGetMovieSearchResultsCallback callback) {
+        api.getMovieSearch(TMDB_API_KEY, LANGUAGE, query)
+                .enqueue(new Callback<MovieSearchResponse>() {
                     @Override
-                    public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                    public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
                         if (response.isSuccessful()) {
-                            SearchResponse searchResponse = response.body();
-                            if (searchResponse != null) {
-                                callback.onSuccess(searchResponse.getSearchResults());
+                            MovieSearchResponse movieSearchResponse = response.body();
+                            if (movieSearchResponse != null) {
+                                callback.onSuccess(movieSearchResponse.getMovieSearchResults());
                             } else {
-                                Log.e("ERROR getSearchResults", "No hay resultados");
+                                Log.e("ERROR", "getMovieSearchResults: No hay resultados");
                             }
                         } else {
-                            Log.e("ERROR getSearchResults", "Fallo en la petición");
+                            Log.e("ERROR", " getMovieSearchResults: Fallo en la petición");
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<SearchResponse> call, Throwable t) {
+                    public void onFailure(Call<MovieSearchResponse> call, Throwable t) {
+                        callback.onError(call, t);
+                    }
+                });
+    }
+
+    public void getTvShowSearchResults(String query, final OnGetTvShowSearchResultCallback callback) {
+        api.getTvShowSearch(TMDB_API_KEY, LANGUAGE, query)
+                .enqueue(new Callback<TvShowSearchResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<TvShowSearchResponse> call, @NonNull Response<TvShowSearchResponse> response) {
+                        if (response.isSuccessful()) {
+                            TvShowSearchResponse tvShowSearchResponse = response.body();
+                            if (tvShowSearchResponse != null) {
+                                callback.onSuccess(tvShowSearchResponse.gettvShowSearchResults());
+                            } else {
+                                Log.e("ERROR", "getTvShowSearchResults: No hay resultados");
+                            }
+                        } else {
+                            Log.e("ERROR", " getTvShowSearchResults: Fallo en la petición");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<TvShowSearchResponse> call, @NonNull Throwable t) {
                         callback.onError(call, t);
                     }
                 });
